@@ -23,9 +23,9 @@ Connected Players:
 
 <br>
 
-<div *ngIf="user && user.userName === currentUser">
+<!-- <div *ngIf="user && user.userName === currentUser">
   Party: {{ user.party }}
   Role: {{ user.role }}
-</div>
+</div> -->
 
 <button *ngIf="roomHost" mat-button (click)="startGame()">Start Game</button>
