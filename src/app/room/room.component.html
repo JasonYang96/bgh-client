@@ -1,0 +1,31 @@
+<form id="room-form">
+  <h2 *ngIf="roomHost">Create a room:</h2>
+  <h2 *ngIf="!roomHost">Join a room:</h2>
+  <mat-form-field>
+    <input matInput #roomName placeholder="Room Name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput #userName placeholder="User Name">
+  </mat-form-field>
+</form>
+
+<button *ngIf="roomHost" mat-button (click)="createGame(roomName.value, userName.value)">Create Game</button>
+<button *ngIf="!roomHost" mat-button (click)="joinGame(roomName.value, userName.value)">Join Game</button>
+
+<br>
+
+Connected Players:
+<div *ngFor="let user of users">
+  <br>
+  {{ user.userName }}
+</div>
+
+<br>
+
+<div *ngIf="user && user.userName === currentUser">
+  Party: {{ user.party }}
+  Role: {{ user.role }}
+</div>
+
+<button *ngIf="roomHost" mat-button (click)="startGame()">Start Game</button>
