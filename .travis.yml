@@ -8,12 +8,10 @@ cache:
   - node_modules
 addons:
   chrome: stable
-before_script:
-- npm install -g @angular/cli
 script:
 - ng lint
-- ng test --watch false -cc
-- xvfb-run ng e2e
+- xvfb-run ng test --watch false --browsers ChromeHeadless
+- xvfb-run ng e2e --aot
 - ng build --prod --aot -bh "https://JasonYang96.github.io/bgh-client/"
 deploy:
   provider: pages
