@@ -1,17 +1,23 @@
 language: node_js
 node_js:
 - node
-sudo: false
+sudo: true
 dist: trusty
 cache:
   directories:
   - node_modules
-addons:
-  chrome: stable
+before_script:
+- export CHROME_BIN=/usr/bin/google-chrome
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- sudo apt-get update
+- sudo apt-get install -y libappindicator1 fonts-liberation
+- wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+- sudo dpkg -i google-chrome*.deb
 script:
 - ng lint
-- xvfb-run ng test --watch false --browsers ChromeHeadless
-- xvfb-run ng e2e --aot
+- ng test --watch false
+- ng e2e --aot
 - ng build --prod --aot -bh "https://JasonYang96.github.io/bgh-client/"
 deploy:
   provider: pages
