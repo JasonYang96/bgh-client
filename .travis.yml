@@ -1,0 +1,24 @@
+language: node_js
+node_js:
+- node
+sudo: false
+dist: trusty
+cache:
+  directories:
+  - node_modules
+addons:
+  chrome: stable
+before_script:
+- npm install -g @angular/cli
+script:
+- ng lint
+- ng test --watch false -cc
+- xvfb-run ng e2e
+- ng build --prod --aot -bh "https://JasonYang96.github.io/bgh-client/"
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token:
+    secure: CzM+7PGU7iZJpjsTRgoVShGYk4oMExfWGXJrC7V3iaBBTanZ8xI8Y0QamGlhvEOqu3QEIzYhy6cxgbMirOnuSNfJK0JhojSuJNlflPeMsRgefZZe6WhCwms2obRvrD+/V4hzdRfy3sAD6utEwlK1ER7DS0KF9TjK6GtK8da7NOv546ne0Ildc2eQHG1U3h+fSnaG9P48INit+wQ9YTchVLqMVAvCVdnRXv1WVhG0FWQkR/WysDdIoO9M3N8oopVnBWmO8pv6+ZNKYjkAyOjSzgfLPzGbdvHK2XNoNIDAr8/pD81XInmm2oywpge0SIWbTy0QI+RH5dmvsvtOScGBvJVaPDu7KyIhyYjo0P+hLCQnEohMIkamFd6glwYGTsHg0ZNAs0yjp0wNJbqK0ZWvt9rpNh+3tJl5IRwqtQsCur/h2iYbI1+4q1ejKMosIVncqY3ADiYcHBqQRdDmWZcQrijXNlAaZvGAdHwSSbTguX32xv7tS7SHlzUfApOMzV6d+KH9UTxyP9+UaGBq5PBWfOPtCm91lUMkufWFiBQk9ZCq21SZuEU0Tw0YYknwRd/L0SLlDonfy+R8jRtTKm/36lF4t36HTywUWtFrqtZKcqZr7sPcOMawJbyJGi8HpMfmqU5+deI0a/TXU6JLshTN7920Q+lb6I9IZZAcetQfBok=
+  local_dir: dist
+  on: master
