@@ -12,7 +12,7 @@ import { SocketService } from '../shared/service/socket/socket.service';
 export class RoomComponent {
   roomHost: boolean;
   users: any = [];
-  currentUser: string = '';
+  currentUser = '';
 
   constructor(private sharedService: SharedService, private gameService: GameService, private socketService: SocketService) {
     this.roomHost = this.sharedService.roomHost.value;

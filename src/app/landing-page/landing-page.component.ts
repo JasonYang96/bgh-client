@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { SharedService } from '../shared/service/shared/shared.service'
+import { SharedService } from '../shared/service/shared/shared.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -10,7 +10,7 @@ import { SharedService } from '../shared/service/shared/shared.service'
 export class LandingPageComponent {
   constructor(private sharedService: SharedService) {}
 
-  newHost(roomHost:boolean) {
+  newHost(roomHost: boolean) {
     this.sharedService.changeHost(roomHost);
   }
 

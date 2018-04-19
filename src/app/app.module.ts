@@ -15,7 +15,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 const appRoutes: Routes = [
   { path: 'room', component: RoomComponent },
   { path: 'landing', component: LandingPageComponent },
-  { path: '', redirectTo:'landing', pathMatch:'full' }
+  { path: '', redirectTo: 'landing', pathMatch: 'full' }
 ];
 
 @NgModule({
