@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { SocketService } from '../socket/socket.service';
+import { SecretHitlerService } from '../secret-hitler/secret-hitler.service';
 
 @Injectable()
 export class GameService {
 
-  constructor(private socketService: SocketService) { }
+  constructor(private socketService: SocketService, private SecretHitlerService: SecretHitlerService) { }
 
   createGame(roomName, userName) {
-    console.log('creating game');
     this.socketService.joinRoom(roomName, userName);
   }
 
@@ -16,11 +16,7 @@ export class GameService {
   }
 
   startGame(users) {
-    users[0].role = 'hitler';
-    users[0].party = 'fascist';
-    users[1].role = 'liberal';
-    users[1].party = 'liberal';
-    console.log(users);
+    users = this.SecretHitlerService.randomizeUsers(users);
     this.socketService.startGame(users);
   }
 

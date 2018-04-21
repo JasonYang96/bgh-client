@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
-import { SharedService } from '../shared/service/shared/shared.service';
-import { GameService } from '../shared/service/game/game.service';
-import { SocketService } from '../shared/service/socket/socket.service';
+import { SharedService } from '../shared/services/shared/shared.service';
+import { GameService } from '../shared/services/game/game.service';
+import { SocketService } from '../shared/services/socket/socket.service';
 
 @Component({
   selector: 'app-room',
@@ -11,8 +11,10 @@ import { SocketService } from '../shared/service/socket/socket.service';
 })
 export class RoomComponent {
   roomHost: boolean;
+  inRoom = false;
   users: any = [];
-  currentUser = '';
+  userName = '';
+  roomName = '';
 
   constructor(private sharedService: SharedService, private gameService: GameService, private socketService: SocketService) {
     this.roomHost = this.sharedService.roomHost.value;
@@ -23,17 +25,18 @@ export class RoomComponent {
     });
   }
 
-  createGame(roomName, userName) {
-    this.currentUser = userName;
-    this.gameService.createGame(roomName, userName);
+  createGame() {
+    this.inRoom = true;
+    this.gameService.createGame(this.roomName, this.userName);
   }
 
-  joinGame(roomName, userName) {
-    this.currentUser = userName;
-    this.gameService.joinGame(roomName, userName);
+  joinGame() {
+    this.inRoom = true;
+    this.gameService.joinGame(this.roomName, this.userName);
   }
 
   startGame() {
+    if(this.users.length < 5) { return; }
     this.gameService.startGame(this.users);
   }
 }
