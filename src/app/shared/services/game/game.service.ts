@@ -5,7 +5,7 @@ import { SecretHitlerService } from '../secret-hitler/secret-hitler.service';
 @Injectable()
 export class GameService {
 
-  constructor(private socketService: SocketService, private SecretHitlerService: SecretHitlerService) { }
+  constructor(private socketService: SocketService, private secretHitlerService: SecretHitlerService) { }
 
   createGame(roomName, userName) {
     this.socketService.joinRoom(roomName, userName);
@@ -16,7 +16,7 @@ export class GameService {
   }
 
   startGame(users) {
-    users = this.SecretHitlerService.randomizeUsers(users);
+    users = this.secretHitlerService.randomizeUsers(users);
     this.socketService.startGame(users);
   }
 

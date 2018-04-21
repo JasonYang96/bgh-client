@@ -36,7 +36,7 @@ export class RoomComponent {
   }
 
   startGame() {
-    if(this.users.length < 5) { return; }
+    if (this.users.length < 5) { return; }
     this.gameService.startGame(this.users);
   }
 }

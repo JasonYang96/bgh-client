@@ -1,4 +1,5 @@
 <div *ngIf="inRoom;then room else roomConfig"></div>
+
 <ng-template #room>
   Connected Players:
   <div *ngFor="let user of users">
@@ -7,6 +8,7 @@
   </div>
   <button mat-button *ngIf="roomHost" (click)="startGame()">Start Game</button>
 </ng-template>
+
 <ng-template #roomConfig>
   <form>
     <h2 *ngIf="roomHost">Create a room:</h2>
