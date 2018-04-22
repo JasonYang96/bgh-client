@@ -11,10 +11,15 @@ import { SocketService } from '../shared/services/socket/socket.service';
 })
 export class RoomComponent {
   roomHost: boolean;
+  gameStarted = false;
   inRoom = false;
   users: any = [];
+
   userName = '';
   roomName = '';
+  currentUser = {};
+  hitler = {};
+  fascists = [];
 
   constructor(private sharedService: SharedService, private gameService: GameService, private socketService: SocketService) {
     this.roomHost = this.sharedService.roomHost.value;
@@ -22,6 +27,13 @@ export class RoomComponent {
     socketService.newUsers().subscribe(users => {
       this.users = users;
       console.log(this.users);
+
+      this.currentUser = this.users.filter((user: any) => user.userName === this.userName)[0];
+      this.hitler = this.users.filter((user: any) => user.role === 'hitler')[0];
+      this.fascists = this.users.filter((user: any) => user.party === 'fascist' && user.role !== 'hitler');
+      console.log('currentUser', this.currentUser);
+      console.log('hitler', this.hitler);
+      console.log('fascists', this.fascists);
     });
   }
 
@@ -37,6 +49,7 @@ export class RoomComponent {
 
   startGame() {
     if (this.users.length < 5) { return; }
+    this.gameStarted = true;
     this.gameService.startGame(this.users);
   }
 }

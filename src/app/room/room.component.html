@@ -6,7 +6,29 @@
     <br>
     {{ user.userName }}
   </div>
-  <button mat-button *ngIf="roomHost" (click)="startGame()">Start Game</button>
+  <button mat-button *ngIf="roomHost" (click)="startGame()">{{ gameStarted ? "Start Another Game" : "Start Game" }}</button>
+
+  <div *ngIf="currentUser.role">
+    Your party is {{ currentUser.party }} and your role is {{ currentUser.role }}!
+
+    <div *ngIf="currentUser.role === 'hitler' && users.length < 7">
+      {{ fascists[0].userName }} is the other Fascist!
+    </div>
+
+    <div *ngIf="currentUser.role === 'fascist'">
+      {{ hitler.userName }} is Hitler!
+      <div *ngIf="users.length >= 7">
+        <br>
+        The other fascists are:
+        <div *ngFor="let fascist of fascists">
+          <br>
+          {{ fascist.userName }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </ng-template>
 
 <ng-template #roomConfig>
