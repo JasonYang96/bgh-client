@@ -13,16 +13,22 @@ export class RoomComponent {
   roomHost: boolean;
   gameStarted = false;
   inRoom = false;
+  partyRevealed = false;
   users: any = [];
 
   userName = '';
   roomName = '';
+  revealedParty = '';
   currentUser = {};
   hitler = {};
   fascists = [];
 
   constructor(private sharedService: SharedService, private gameService: GameService, private socketService: SocketService) {
     this.roomHost = this.sharedService.roomHost.value;
+
+    socketService.gameStarted().subscribe(() => {
+      this.gameStarted = true;
+    });
 
     socketService.newUsers().subscribe(users => {
       this.users = users;
@@ -51,5 +57,10 @@ export class RoomComponent {
     if (this.users.length < 5) { return; }
     this.gameStarted = true;
     this.gameService.startGame(this.users);
+  }
+
+  revealParty(user) {
+    this.partyRevealed = true;
+    this.revealedParty = user.party;
   }
 }

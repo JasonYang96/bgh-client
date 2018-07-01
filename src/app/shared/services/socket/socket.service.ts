@@ -35,4 +35,12 @@ export class SocketService {
     });
   }
 
+  gameStarted() {
+    return new Observable<any>(observer => {
+      this.socket.on('game started', () => {
+        observer.next();
+      })
+    })
+  }
+
 }
